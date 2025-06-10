@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antova: Investor Pitch Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c1427; /* Deep Research Palette - Dark Blue */
+            color: #e2e8f0; /* Deep Research Palette - Light Gray */
+        }
+        /* Selected Color Palette: Deep Research (Inspired by professional, modern tones) */
+        /* Accent Color: #38bdf8 (Sky Blue - for icons, highlights) */
+        /* Secondary Accent: #f472b6 (Pink) */
+        /* Tertiary Accent: #a5b4fc (Lavender) */
+        /* Text Colors: #ffffff, #94a3b8, #cbd5e1 */
+        /* Backgrounds: #0c1427, #1e293b, #1a233b, #0f172a */
+
+        .slide {
+            min-height: calc(100vw * 9 / 16); /* Maintain 16:9 aspect ratio on mobile based on width */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+            border-bottom: 1px solid #1e293b;
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+        @media (min-width: 768px) {
+            .slide {
+                min-height: 100vh; /* Full viewport height for larger screens */
+                padding: 4rem 2rem;
+            }
+        }
+        .slide-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        @media (min-width: 768px) {
+            .slide-title {
+                font-size: 3.75rem;
+            }
+        }
+        .slide-subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #94a3b8;
+            text-align: center;
+            max-width: 48rem;
+            margin: 0 auto 2rem auto;
+        }
+         @media (min-width: 768px) {
+            .slide-subtitle {
+                font-size: 1.125rem;
+                margin: 0 auto 3rem auto;
+            }
+        }
+        .card {
+            background-color: #1e293b; /* Deep Research Palette - Darker Blue */
+            border-radius: 0.75rem;
+            padding: 1rem;
+            border: 1px solid #334155; /* Deep Research Palette - Slate */
+            box-sizing: border-box;
+        }
+        @media (min-width: 768px) {
+            .card {
+                 padding: 2rem;
+            }
+        }
+        .icon {
+            font-size: 2rem;
+            color: #38bdf8; /* Deep Research Palette - Accent */
+        }
+         @media (min-width: 768px) {
+            .icon {
+                 font-size: 2.5rem;
+            }
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 14rem; /* Base height for mobile */
+        }
+        @media (min-width: 640px) {
+            .chart-container {
+                height: 16rem;
+            }
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 20rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .chart-container {
+                height: 24rem;
+            }
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .feature-item .icon {
+            font-size: 1.5rem;
+            color: #38bdf8; /* Deep Research Palette - Accent */
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+        /* Toggle content is initially hidden */
+        .toggle-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            margin-top: 1.5rem; /* Ensure spacing when visible */
+        }
+        .toggle-content.show {
+            max-height: 1000px; /* Arbitrary large value to allow content to show */
+            transition: max-height 0.5s ease-in;
+        }
+        /* AI output container is always visible by default */
+        .ai-output-container {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #1a233b;
+            border-left: 4px solid #38bdf8;
+            border-radius: 0.5rem;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            min-height: 50px;
+            display: flex; /* Ensure flex for content alignment */
+            align-items: center;
+            justify-content: center; /* Center content initially */
+            text-align: left;
+            opacity: 1; /* Always visible */
+        }
+        /* Remove buttons for AI-generated insights as they are now always visible */
+        .ai-insight-button {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide">
+        <div class="text-center">
+            <h1 class="text-5xl md:text-8xl font-black tracking-tighter text-white">ANTOVA</h1>
+            <p class="mt-4 text-xl md:text-2xl font-medium text-sky-400">AI for a Decarbonized World</p>
+            <p class="mt-8 text-slate-400">June 09, 2025</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: The Problem -->
+    <div class="slide">
+        <div class="container mx-auto">
+            <h2 class="slide-title">The Scope 3 Challenge</h2>
+            <p class="slide-subtitle">The global supply chain, the engine of our economy, carries an invisible burden: Scope 3 emissions. This is not just an environmental issue; it's a fundamental obstacle to operational efficiency and a looming financial risk for every enterprise.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
+                <div class="space-y-3">
+                    <p class="icon">🌍</p>
+                    <h3 class="text-lg font-bold text-white">Vast Untracked Emissions</h3>
+                    <p class="text-slate-400 text-sm">Over 90% of corporate carbon footprints lie hidden within complex supply chains, unmanaged and unmeasured.</p>
+                </div>
+                <div class="space-y-3">
+                    <p class="icon">⚖️</p>
+                    <h3 class="text-lg font-bold text-white">Accelerating Regulation</h3>
+                    <p class="text-slate-400 text-sm">Global mandates like the EU's CSRD and CBAM transform climate responsibility into a stringent, costly compliance imperative.</p>
+                </div>
+                <div class="space-y-3">
+                    <p class="icon">📉</p>
+                    <h3 class="text-lg font-bold text-white">Lack of Actionable Tools</h3>
+                    <p class="text-slate-400 text-sm">Current tools offer static reports; they lack the real-time, AI-driven insights needed for *active* emissions reduction in logistics.</p>
+                </div>
+                <div class="space-y-3">
+                    <p class="icon">💸</p>
+                    <h3 class="text-lg font-bold text-white">Direct Financial Inefficiency</h3>
+                    <p class="text-slate-400 text-sm">Unmanaged emissions translate directly into wasted resources, inflated operational costs, and lost competitive advantage.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: The Solution -->
+    <div class="slide">
+        <div class="container mx-auto">
+            <h2 class="slide-title">Our Solution: Antova</h2>
+            <p class="slide-subtitle">Antova is building the world's first AI-powered intelligence layer for sustainable logistics. We don't just report on emissions; we enable their reduction, transforming complex data into actionable, cost-saving decisions at scale.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 text-center">
+                <div class="card space-y-3">
+                    <p class="icon">💡</p>
+                    <h3 class="text-lg font-bold text-white">AI-Powered Carbon Action</h3>
+                    <p class="text-slate-400 text-sm">We provide an AI-driven operating system for your supply chain, identifying and executing on every emission reduction opportunity.</p>
+                </div>
+                <div class="card space-y-3">
+                    <p class="icon">🔗</p>
+                    <h3 class="text-lg font-bold text-white">Holistic Ecosystem Optimization</h3>
+                    <p class="text-slate-400 text-sm">Our platform delivers end-to-end intelligence across transport, warehousing, packaging, and an entire network of suppliers.</p>
+                </div>
+                <div class="card space-y-3">
+                    <p class="icon">🚀</p>
+                    <h3 class="text-lg font-bold text-white">Prescriptive, Real-time Insights</h3>
+                    <p class="text-slate-400 text-sm">Antova delivers instant, clear recommendations for cleaner routes, greener partners, and smarter operational decisions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 4: Our Platform - Comprehensive Features -->
+    <div class="slide">
+        <div class="container mx-auto">
+            <h2 class="slide-title">Our Platform: Intelligence Suite</h2>
+            <p class="slide-subtitle">Antova's SaaS platform is a robust suite of AI-driven tools, designed to embed sustainability intelligence into every facet of your supply chain operations.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 text-left">
+                <div class="card">
+                    <h3 class="text-lg font-bold text-white mb-3">Emissions Measurement</h3>
+                    <p class="text-slate-400 text-sm mb-4">Precise, granular measurement and comprehensive visualization of emissions with robust reporting.</p>
+                    <button id="coreEmissionsToggleBtn" class="px-4 py-2 text-sm bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-full transition duration-300">
+                        Learn More
+                    </button>
+                    <div id="coreEmissionsContent" class="toggle-content">
+                        <ul class="space-y-2 text-sm">
+                            <li class="feature-item"><span class="icon">🔢</span><p><span class="font-bold text-sky-400">CO₂ Emissions Calculator:</span> Real-time, precise calculations for shipments by route, mode, and weight, adhering to global standards.</p></li>
+                            <li class="feature-item"><span class="icon">🗺️</span><p><span class="font-bold text-sky-400">Route Visualizer:</span> Interactive mapping of emission routes, dynamically highlighting optimization potential.</p></li>
+                            <li class="feature-item"><span class="icon">📄</span><p><span class="font-bold text-sky-400">Comprehensive Reports:</span> Automated generation of detailed emission summaries and optimization reports for compliance and strategic analysis.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-bold text-white mb-3">AI-Powered Optimization</h3>
+                    <p class="text-slate-400 text-sm mb-4">Leveraging deep learning for intelligent route planning and supplier evaluation.</p>
+                    <button id="aiOptimizationToggleBtn" class="px-4 py-2 text-sm bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-full transition duration-300">
+                        Learn More
+                    </button>
+                    <div id="aiOptimizationContent" class="toggle-content">
+                        <ul class="space-y-2 text-sm">
+                            <li class="feature-item"><span class="icon">🛣️</span><p><span class="font-bold text-sky-400">Optimized Route Planning:</span> AI-driven identification of the most eco-efficient transport routes, balancing cost, time, and carbon.</p></li>
+                            <li class="feature-item"><span class="icon">📦</span><p><span class="font-bold text-sky-400">Efficient Load Management:</span> AI optimization of logistics workflows to minimize trips and reduce fleet emissions.</p></li>
+                            <li class="feature-item"><span class="icon">🔎</span><p><span class="font-bold text-sky-400">Supplier Intelligence:</span> AI-driven analysis of suppliers by environmental performance, enabling sustainable procurement.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="text-lg font-bold text-white mb-3">Strategic Impact & ESG</h3>
+                    <p class="text-slate-400 text-sm mb-4">Driving systemic decarbonization through green operations, materials, and offset management.</p>
+                    <button id="strategicSustainabilityToggleBtn" class="px-4 py-2 text-sm bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-full transition duration-300">
+                        Learn More
+                    </button>
+                    <div id="strategicSustainabilityContent" class="toggle-content">
+                        <ul class="space-y-2 text-sm">
+                            <li class="feature-item"><span class="icon">🏭</span><p><span class="font-bold text-sky-400">Green Warehousing:</span> AI analysis to identify significant energy and carbon savings from sustainable practices and technologies.</p></li>
+                            <li class="feature-item"><span class="icon">♻️</span><p><span class="font-bold text-sky-400">Sustainable Packaging:</span> AI assessment of current packaging emissions and recommendations for eco-friendly alternatives.</p></li>
+                            <li class="feature-item"><span class="icon">🌐</span><p><span class="font-bold text-sky-400">Carbon Offsetting:</span> Integrated platform for planning, tracking, and recording verified carbon offset projects.</p></li>
+                            <li class="feature-item"><span class="icon">⚡</span><p><span class="font-bold text-sky-400">Energy Conservation:</span> AI analysis of facility energy consumption, recommending smart system and technology integrations.</p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: The AI Core -->
+    <div class="slide">
+        <div class="container mx-auto">
+            <h2 class="slide-title">The AI Core</h2>
+            <p class="slide-subtitle">Antova's proprietary AI is the strategic operating system that transforms the chaos of supply chain data into precise, actionable intelligence. It ensures unmatched accuracy, drives efficiency, and enables scalable, impactful decarbonization.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="card">
+                     <h3 class="text-xl font-bold text-white mb-4">AI in Action: Logistics Optimization</h3>
+                    <p class="text-slate-400 text-sm mb-6">Our AI analyzed a standard London-to-Shanghai shipment, recommending a strategic shift from high-emission air freight to an optimized sea + electric truck route. This predictive analysis delivered a dramatic reduction in both carbon emissions and associated costs, showcasing the power of intelligent, multi-objective optimization.</p>
+                    <div class="chart-container">
+                        <canvas id="routeOptimizationChart"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-white">Why Our AI Wins:</h3>
+                    <p class="text-slate-300 text-sm">Antova's AI capabilities provide critical, sustainable advantages for businesses seeking advanced decarbonization solutions.</p>
+                    <button id="aiCoreToggleBtn" class="px-6 py-3 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-full shadow-lg transition duration-300">
+                        Deep Dive: AI Value
+                    </button>
+                    <div id="aiCoreContent" class="toggle-content">
+                        <div class="mt-6">
+                            <h4 class="font-bold text-sky-400">Precision & Predictive Intelligence</h4>
+                            <p class="text-slate-300 text-sm">Our AI precisely maps Scope 3 footprints and forecasts future emissions. This empowers proactive strategy, anticipating and mitigating environmental impacts before they materialize, moving beyond reactive reporting.</p>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="font-bold text-sky-400">Operational Profitability & Efficiency</h4>
+                            <p class="text-slate-300 text-sm">By optimizing routes, loads, and supplier choices, our AI directly links emission reduction to tangible cost savings, proving sustainability is a powerful driver of financial performance.</p>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="font-bold text-sky-400">Scalability & Complex Data Mastery</h4>
+                            <p class="text-slate-300 text-sm">Our AI effortlessly processes vast and heterogeneous supply chain data, delivering actionable insights scalable from SMEs to global corporations. This ensures our solution grows with your business and handles the intricate details of modern logistics.</p>
+                        </div>
+                         <div class="mt-4">
+                            <h4 class="font-bold text-sky-400">Strategic Supplier Evaluation</h4>
+                            <p class="text-slate-300 text-sm">Antova's AI generates dynamic 'green scores' for suppliers, enabling data-driven procurement decisions that reduce indirect emissions and enhance supply chain resilience by fostering a network of sustainable partners.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Market Size & Situation -->
+    <div class="slide">
+        <div class="container mx-auto text-center">
+            <h2 class="slide-title">The Market</h2>
+            <p class="slide-subtitle">Antova is positioned at the nexus of the colossal global logistics industry and the undeniable, accelerating demand for transformative sustainability solutions.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                <div class="card">
+                    <p class="text-4xl md:text-5xl font-black text-white">$13 Trillion</p>
+                    <p class="mt-2 text-slate-400 text-sm">Global Logistics Market Size</p>
+                </div>
+                 <div class="card">
+                    <p class="text-4xl md:text-5xl font-black text-white">>90%</p>
+                    <p class="mt-2 text-slate-400 text-sm">of Emissions are Scope 3</p>
+                </div>
+                <div class="card">
+                    <p class="text-4xl md:text-5xl font-black text-white">50% CAGR</p>
+                    <p class="mt-2 text-slate-400 text-sm">Carbon Management Software Growth</p>
+                </div>
+                 <div class="card">
+                    <p class="text-4xl md:text-5xl font-black text-white">$900K</p>
+                    <p class="mt-2 text-slate-400 text-sm">Projected ARR (Year 2)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Scalable Hybrid Revenue Model -->
+    <div class="slide">
+        <div class="container mx-auto">
+            <h2 class="slide-title">Our Revenue Model</h2>
+            <p class="slide-subtitle">Our diversified revenue model is engineered for rapid market penetration, accelerating growth, and long-term, high-margin profitability. It's a resilient financial ecosystem designed to capture maximum value.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                 <div class="card">
+                    <h3 class="text-xl font-bold text-center text-white mb-4">Subscription User Growth (24 Months)</h3>
+                    <div class="chart-container">
+                        <canvas id="subscriptionGrowthChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center text-white mb-4">Value-Added Revenue Breakdown (Year 2)</h3>
+                    <div class="chart-container">
+                        <canvas id="valueAddedRevenueBreakdownChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 space-y-4 mt-8">
+                    <h3 class="text-xl font-bold text-white text-center">Key Revenue Streams:</h3>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="p-4 rounded-lg bg-slate-900/50">
+                            <h4 class="font-bold text-sky-400">Tiered Subscriptions (60%)</h4>
+                            <p class="text-slate-300 text-sm">Stable, recurring revenue from Freemium to Enterprise plans, designed for expansive market coverage.</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-slate-900/50">
+                            <h4 class="font-bold text-sky-400">Value-Added Services (20%)</h4>
+                            <p class="text-slate-300 text-sm">High-margin consulting, premium API access, and custom analytics for unparalleled client engagement.</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-slate-900/50">
+                            <h4 class="font-bold text-sky-400">Strategic Partnerships (10%)</h4>
+                            <p class="text-slate-300 text-sm">Robust ecosystem partnerships with offset providers and logistics platforms, expanding our footprint.</p>
+                        </div>
+                         <div class="p-4 rounded-lg bg-slate-900/50">
+                            <h4 class="font-bold text-sky-400">Data Monetization (10%)</h4>
+                            <p class="text-slate-300 text-sm">Unique revenue stream from selling anonymized industry benchmarks and predictive insights – our intellectual property.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 8: Competitors -->
+    <div class="slide">
+        <div class="container mx-auto">
+            <h2 class="slide-title">Competitive Edge</h2>
+            <p class="slide-subtitle">Antova is not merely competing; we are defining the category for intelligent, actionable decarbonization in logistics. Our unique capabilities position us as the clear market leader.</p>
+            <div class="card">
+                <div class="chart-container">
+                    <canvas id="competitorChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: USP -->
+    <div class="slide">
+        <div class="container mx-auto">
+            <h2 class="slide-title">Why Antova?</h2>
+            <p class="slide-subtitle">Our unique selling proposition is built on tangible results, technological superiority, and a business model that aligns sustainability with profitability.</p>
+            <div class="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 gap-6">
+                <div class="bg-slate-900/50 p-3 rounded-lg text-sm text-center">AI-Powered Action, Not Just Accounting</div>
+                <div class="bg-slate-900/50 p-3 rounded-lg text-sm text-center">Direct Link Between Sustainability & Profitability</div>
+                <div class="bg-slate-900/50 p-3 rounded-lg text-sm text-center">Holistic, End-to-End Supply Chain Coverage</div>
+                <div class="bg-slate-900/50 p-3 rounded-lg text-sm text-center">First-Mover Advantage in AI Logistics Sustainability</div>
+                <div class="bg-slate-900/50 p-3 rounded-lg text-sm text-center">Built for Global Scalability and Seamless Integration</div>
+                <div class="bg-slate-900/50 p-3 rounded-lg text-sm text-center">Proprietary Data Monetization Potential</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Traction -->
+    <div class="slide">
+        <div class="container mx-auto">
+            <h2 class="slide-title">Traction & Milestones</h2>
+            <p class="slide-subtitle">We have a clear roadmap for strategic execution and have already achieved critical foundational milestones, validating our commitment to rapid progress and market impact.</p>
+            <div class="w-full max-w-5xl mx-auto flex flex-col sm:flex-row md:flex-row justify-between text-center space-y-8 sm:space-y-0 sm:space-x-4">
+                <div class="flex-1">
+                    <p class="text-4xl font-bold text-sky-400">✅</p>
+                    <h3 class="text-lg font-bold mt-2 text-white">Prototype Live</h3>
+                    <p class="text-slate-400 text-sm mt-1">Q2 2025</p>
+                </div>
+                <div class="hidden sm:block w-px bg-slate-700"></div>
+                <div class="flex-1">
+                    <p class="text-4xl font-bold text-sky-400">🎯</p>
+                    <h3 class="text-lg font-bold mt-2 text-white">Phase 1 Launch</h3>
+                    <p class="text-slate-400 text-sm mt-1">Goal: 150 Users by Q4 2025</p>
+                </div>
+                <div class="hidden sm:block w-px bg-slate-700"></div>
+                <div class="flex-1">
+                    <p class="text-4xl font-bold text-sky-400">🤝</p>
+                    <h3 class="text-lg font-bold mt-2 text-white">Enterprise Pilots</h3>
+                    <p class="text-slate-400 text-sm mt-1">Secure 10 Pilots by Q1 2026</p>
+                </div>
+                 <div class="hidden sm:block w-px bg-slate-700"></div>
+                <div class="flex-1">
+                    <p class="text-4xl font-bold text-sky-400">📈</p>
+                    <h3 class="text-lg font-bold mt-2 text-white">Phase 2 Launch</h3>
+                    <p class="text-slate-400 text-sm mt-1">Goal: 300+ Users by Q3 2026</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: Financials & Fundraising -->
+    <div class="slide">
+        <div class="container mx-auto">
+            <h2 class="slide-title">Financials & Funding</h2>
+            <p class="slide-subtitle">Our projections show a clear and rapid path to profitability, underscoring a highly efficient and financially viable business model. We are seeking capital to accelerate our growth.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center text-white mb-4">Projected Revenue vs. Costs ($K)</h3>
+                    <div class="chart-container">
+                        <canvas id="financialsChart"></canvas>
+                    </div>
+                </div>
+                <div class="text-center lg:text-left">
+                     <div class="mb-8">
+                        <p class="text-lg text-slate-400">Total Projected Profit (3 Years)</p>
+                        <p class="text-5xl md:text-6xl font-black text-white">$1.5 Million</p>
+                    </div>
+                    <div class="card bg-sky-900/50 border-sky-500">
+                        <h3 class="text-2xl font-bold text-white">The Ask: Fueling the Future</h3>
+                        <p class="mt-2 text-3xl md:text-4xl font-bold text-sky-300">€1,000,000 Seed Funding</p>
+                        <p class="mt-1 text-slate-300">for 5% Equity</p>
+                    </div>
+                                          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 12: Vision -->
+     <div class="slide">
+        <div class="text-center">
+            <h2 class="slide-title">Our Vision</h2>
+            <p class="slide-subtitle max-w-3xl">To establish Antova as the indispensable AI-powered digital backbone for climate-positive supply chains globally, setting the industry standard for Scope 3 data, analytics, and action.</p>
+            <p class="mt-8 text-xl font-semibold text-white">Join us. Let's build the future of sustainable logistics, together.</p>
+             <p class="mt-4 text-slate-300">Meet the team: [Akhil, Santhosh, Abbas, Hemanth]</p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const chartLabelColor = '#94a3b8';
+            const gridColor = '#1e293b';
+            const tooltipTitleColor = '#ffffff';
+            const tooltipBodyColor = '#cbd5e1';
+            const tooltipBgColor = '#0f172a';
+
+            const processLabel = (label) => {
+                // Splits labels into multiple lines if they are too long for better readability on charts
+                if (typeof label === 'string' && label.length > 16) {
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    for (const word of words) {
+                        if ((currentLine + word).length > 16 && currentLine.length > 0) {
+                            lines.push(currentLine.trim());
+                            currentLine = '';
+                        }
+                        currentLine += word + ' ';
+                    }
+                    lines.push(currentLine.trim());
+                    return lines;
+                }
+                return label;
+            };
+
+            const baseChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: chartLabelColor,
+                            font: { family: 'Inter', weight: '500' },
+                            padding: 20,
+                            generateLabels: function(chart) {
+                                const labels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+                                return labels.map(label => ({...label, text: Array.isArray(label.text) ? label.text.join(' ') : label.text }));
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: tooltipBgColor,
+                        titleColor: tooltipTitleColor,
+                        bodyColor: tooltipBodyColor,
+                        titleFont: { family: 'Inter', weight: 'bold', size: 14 },
+                        bodyFont: { family: 'Inter', size: 12 },
+                        padding: 12,
+                        cornerRadius: 4,
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                // Ensure title displays multi-line labels correctly
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: chartLabelColor, font: { family: 'Inter' } },
+                        grid: { color: gridColor }
+                    },
+                    x: {
+                        ticks: { color: chartLabelColor, font: { family: 'Inter' }, maxRotation: 0, minRotation: 0 },
+                        grid: { display: false }
+                    }
+                }
+            };
+            
+            // Route Optimization Chart
+            const routeCtx = document.getElementById('routeOptimizationChart');
+            if (routeCtx) {
+                new Chart(routeCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Plane', 'Truck', 'Antova Optimized Route'].map(processLabel),
+                        datasets: [{
+                            label: 'CO₂ Emissions (kg)',
+                            data: [138410.94, 22072.18, 3862.63],
+                            backgroundColor: ['#f472b6', '#a5b4fc', '#38bdf8'],
+                            borderColor: '#1e293b',
+                            borderWidth: 2,
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {...baseChartOptions, plugins: {...baseChartOptions.plugins, legend: { display: false }}}
+                });
+            }
+
+            // Subscription Growth Chart (Updated Data)
+            const subscriptionGrowthCtx = document.getElementById('subscriptionGrowthChart');
+            if (subscriptionGrowthCtx) {
+                new Chart(subscriptionGrowthCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Month 6', 'Month 12', 'Month 18', 'Month 24'],
+                        datasets: [
+                            {
+                                label: 'Starter Users',
+                                data: [150, 300, 400, 500], /* Aligned with roadmap goals */
+                                borderColor: '#38bdf8',
+                                backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                                fill: true,
+                                tension: 0.3
+                            },
+                            {
+                                label: 'Growth Users',
+                                data: [0, 60, 90, 120], /* Aligned with roadmap goals */
+                                borderColor: '#f472b6',
+                                backgroundColor: 'rgba(244, 114, 182, 0.1)',
+                                fill: true,
+                                tension: 0.3
+                            },
+                            {
+                                label: 'Enterprise Users',
+                                data: [0, 5, 10, 15], /* Aligned with roadmap goals */
+                                borderColor: '#a5b4fc',
+                                backgroundColor: 'rgba(165, 180, 252, 0.1)',
+                                fill: true,
+                                tension: 0.3
+                            }
+                        ]
+                    },
+                    options: { ...baseChartOptions, scales: { ...baseChartOptions.scales, y: { ...baseChartOptions.scales.y, ticks: { ...baseChartOptions.scales.y.ticks, callback: (value) => value } } } }
+                });
+            }
+
+            // Value-Added Revenue Breakdown Chart (Data represents percentages)
+            const valueAddedRevenueBreakdownCtx = document.getElementById('valueAddedRevenueBreakdownChart');
+            if (valueAddedRevenueBreakdownCtx) {
+                new Chart(valueAddedRevenueBreakdownCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Consulting', 'API Access', 'Custom Analytics'].map(processLabel),
+                        datasets: [{
+                            data: [50, 30, 20], /* Data from previous discussion on services breakdown percentages */
+                            backgroundColor: ['#38bdf8', '#f472b6', '#fbbf24'],
+                            borderColor: '#1e293b',
+                            borderWidth: 4,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: chartLabelColor, font: { family: 'Inter', weight: '500' }, padding: 15 }
+                            },
+                            tooltip: { ...baseChartOptions.plugins.tooltip, callbacks: {
+                                title: (tooltipItems) => tooltipItems[0].label,
+                                label: (context) => ` ${context.parsed}%`
+                            }}
+                        }
+                    }
+                });
+            }
+
+
+            // Competitor Chart
+            const competitorCtx = document.getElementById('competitorChart');
+            if (competitorCtx) {
+                new Chart(competitorCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['AI Analytics', 'Feature Breadth', 'Affordability', 'Logistics Focus', 'Data Monetization'].map(processLabel),
+                        datasets: [{
+                            label: 'Antova',
+                            data: [9, 9, 8, 9, 8],
+                            backgroundColor: 'rgba(56, 189, 248, 0.2)',
+                            borderColor: 'rgba(56, 189, 248, 1)',
+                            pointBackgroundColor: 'rgba(56, 189, 248, 1)',
+                            pointBorderColor: '#fff',
+                            borderWidth: 2
+                        }, {
+                            label: 'Greenly',
+                            data: [4, 5, 5, 3, 3],
+                            backgroundColor: 'rgba(148, 163, 184, 0.2)',
+                            borderColor: 'rgba(148, 163, 184, 1)',
+                            pointBackgroundColor: 'rgba(148, 163, 184, 1)',
+                            pointBorderColor: '#fff',
+                            borderWidth: 2
+                        }, {
+                            label: 'Project44',
+                            data: [7, 4, 3, 9, 1],
+                            backgroundColor: 'rgba(244, 114, 182, 0.2)',
+                            borderColor: 'rgba(244, 114, 182, 1)',
+                            pointBackgroundColor: 'rgba(244, 114, 182, 1)',
+                            pointBorderColor: '#fff',
+                            borderWidth: 2
+                        }, {
+                            label: 'Watershed',
+                            data: [8, 7, 3, 4, 2],
+                            backgroundColor: 'rgba(255, 215, 0, 0.2)', /* Gold-ish */
+                            borderColor: 'rgba(255, 215, 0, 1)',
+                            pointBackgroundColor: 'rgba(255, 215, 0, 1)',
+                            pointBorderColor: '#fff',
+                            borderWidth: 2
+                        }, {
+                            label: 'EcoVadis',
+                            data: [3, 6, 6, 2, 4],
+                            backgroundColor: 'rgba(0, 128, 0, 0.2)', /* Green */
+                            borderColor: 'rgba(0, 128, 0, 1)',
+                            pointBackgroundColor: 'rgba(0, 128, 0, 1)',
+                            pointBorderColor: '#fff',
+                            borderWidth: 2
+                        }, {
+                            label: 'Sustain.Life',
+                            data: [6, 7, 4, 3, 3],
+                            backgroundColor: 'rgba(128, 0, 128, 0.2)', /* Purple */
+                            borderColor: 'rgba(128, 0, 128, 1)',
+                            pointBackgroundColor: 'rgba(128, 0, 128, 1)',
+                            pointBorderColor: '#fff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: baseChartOptions.plugins,
+                        scales: {
+                            r: {
+                                angleLines: { color: gridColor },
+                                grid: { color: gridColor },
+                                pointLabels: {
+                                    font: { size: 12, family: 'Inter', weight: '600' },
+                                    color: chartLabelColor
+                                },
+                                ticks: {
+                                    display: false,
+                                    stepSize: 2
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Financials Chart (Updated Data)
+            const financialsCtx = document.getElementById('financialsChart');
+            if (financialsCtx) {
+                new Chart(financialsCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Year 1', 'Year 2', 'Year 3'],
+                        datasets: [{
+                            label: 'Revenue',
+                            data: [400, 900, 1500], /* Updated data based on refined projections */
+                            borderColor: '#38bdf8',
+                            backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                        }, {
+                            label: 'Costs',
+                            data: [300, 450, 550], /* Updated data based on refined projections */
+                            borderColor: '#f472b6',
+                            backgroundColor: 'rgba(244, 114, 182, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                        }]
+                    },
+                    options: { ...baseChartOptions, scales: { ...baseChartOptions.scales, y: { ...baseChartOptions.scales.y, ticks: { ...baseChartOptions.scales.y.ticks, callback: (value) => '$' + value + 'K' } } } }
+                });
+            }
+
+            // Toggle function for detailed features
+            function toggleDetailedFeatures(buttonId, contentId) {
+                const button = document.getElementById(buttonId);
+                const content = document.getElementById(contentId);
+                if (button && content) { // Add null check here
+                    button.addEventListener('click', () => {
+                        content.classList.toggle('show');
+                        if (content.classList.contains('show')) {
+                            button.textContent = `Hide Details`;
+                        } else {
+                            button.textContent = `Learn More`;
+                        }
+                    });
+                }
+            }
+
+            // Specific toggle for AI Core
+            function toggleAICoreContent(buttonId, contentId) {
+                const button = document.getElementById(buttonId);
+                const content = document.getElementById(contentId);
+                if (button && content) { // Add null check here
+                    button.addEventListener('click', () => {
+                        content.classList.toggle('show');
+                        if (content.classList.contains('show')) {
+                            button.textContent = `Hide AI Deep Dive`;
+                        } else {
+                            button.textContent = `Deep Dive: AI Value`;
+                        }
+                    });
+                }
+            }
+
+
+            // Event Listeners for buttons - these now control toggles for hidden content
+            document.getElementById('coreEmissionsToggleBtn').addEventListener('click', () => {
+                toggleDetailedFeatures('coreEmissionsToggleBtn', 'coreEmissionsContent');
+            });
+            document.getElementById('aiOptimizationToggleBtn').addEventListener('click', () => {
+                toggleDetailedFeatures('aiOptimizationToggleBtn', 'aiOptimizationContent');
+            });
+            document.getElementById('strategicSustainabilityToggleBtn').addEventListener('click', () => {
+                toggleDetailedFeatures('strategicSustainabilityToggleBtn', 'strategicSustainabilityContent');
+            });
+            document.getElementById('aiCoreToggleBtn').addEventListener('click', () => {
+                toggleAICoreContent('aiCoreToggleBtn', 'aiCoreContent');
+            });
+
+        });
+    </script>
+
+</body>
+</html>
